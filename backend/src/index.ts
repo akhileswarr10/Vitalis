@@ -34,6 +34,7 @@ async function readBody(req: IncomingMessage): Promise<string | undefined> {
   return chunks.length > 0 ? Buffer.concat(chunks).toString('utf8') : undefined;
 }
 
+// Handler function for direct serverless invocation
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   try {
     const app = await getApp();

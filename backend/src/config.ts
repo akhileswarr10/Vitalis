@@ -13,7 +13,11 @@ const ConfigSchema = z.object({
 
   // ---- Supabase (Postgres) ----
   // Use "pglite://memory" in tests (CI) only.
-  DATABASE_URL: z.string().min(1),
+  DATABASE_URL: z
+    .string()
+    .default(
+      'postgresql://postgres.cbzbugehekgvbulpenrn:Akhileswar%401703@aws-1-ap-south-1.pooler.supabase.com:6543/postgres',
+    ),
 
   // ---- Groq ----
   GROQ_API_KEY: z.string().default(''),

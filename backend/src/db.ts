@@ -78,8 +78,12 @@ export async function createDb(databaseUrl: string): Promise<Db> {
     max: 10,
   });
 
-  // Eagerly verify connectivity; fail fast at startup rather than on first request
-  await pool.query('SELECT 1');
+  // Non-fatal connectivity check so cold starts don't abort before handling requests
+  try {
+    await pool.query('SELECT 1');
+  } catch (err) {
+    console.warn('Initial DB connectivity probe notice (will retry on query):', err);
+  }
 
   return {
     async query<T extends Record<string, unknown>>(sql: string, params?: unknown[]) {
