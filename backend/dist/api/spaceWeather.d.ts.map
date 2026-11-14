@@ -1,0 +1,1 @@
+{"version":3,"file":"spaceWeather.d.ts","sourceRoot":"","sources":["../../src/api/spaceWeather.ts"],"names":[],"mappings":"AAAA;;;;;;;GAOG;AACH,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,SAAS,CAAC;AAClD,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAGzC,UAAU,qBAAqB;IAC7B,IAAI,EAAE,OAAO,CAAC;CACf;AAED,eAAO,MAAM,iBAAiB,EAAE,kBAAkB,CAAC,qBAAqB,CAOvE,CAAC"}

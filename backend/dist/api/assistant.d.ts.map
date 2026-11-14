@@ -1,0 +1,1 @@
+{"version":3,"file":"assistant.d.ts","sourceRoot":"","sources":["../../src/api/assistant.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AACH,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,SAAS,CAAC;AAElD,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAGzC,UAAU,kBAAkB;IAC1B,IAAI,EAAE,OAAO,CAAC;CACf;AAED,eAAO,MAAM,cAAc,EAAE,kBAAkB,CAAC,kBAAkB,CAiCjE,CAAC"}

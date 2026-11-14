@@ -1,0 +1,176 @@
+# Vitalis thresholds.yaml
+# Every metric must have: key, label, unit, domain, direction, watch, action,
+# drift_tolerance, why, source.
+# HR is baseline_relative: watch/action are bpm OFFSETS above the personal baseline.
+# source: either a URL or "illustrative, to be validated by flight surgeon"
+
+metrics:
+  - key: hr
+    label: Resting Heart Rate
+    unit: bpm
+    domain: cardio
+    direction: higher_is_worse
+    baseline_relative: true      # offsets from personal mean (first 7 entries, min 3)
+    watch: 15                    # +15 bpm above baseline
+    action: 25                   # +25 bpm above baseline
+    drift_tolerance: 8           # bpm/period drift before flag
+    why: >
+      Elevated resting HR in microgravity may indicate fluid-shift deconditioning,
+      autonomic dysregulation, or early infection. A sustained rise beyond the
+      personal baseline warrants monitoring before it reaches clinical thresholds.
+    source: "https://www.nasa.gov/hrp/research/cardiovascular-health"
+
+  - key: sbp
+    label: Systolic Blood Pressure
+    unit: mmHg
+    domain: cardio
+    direction: higher_is_worse
+    watch: 140
+    action: 160
+    drift_tolerance: 8
+    why: >
+      Spaceflight can cause cephalad fluid shift and altered baroreceptor sensitivity.
+      JNC 7/8 define Stage 1 hypertension at ≥140 mmHg; Stage 2 (≥160) requires
+      immediate crew medical officer attention.
+    source: "illustrative, to be validated by flight surgeon"
+
+  - key: ortho
+    label: Orthostatic Heart-Rate Rise
+    unit: bpm
+    domain: cardio
+    direction: higher_is_worse
+    watch: 20
+    action: 30
+    drift_tolerance: 5
+    why: >
+      A rise of ≥20 bpm from supine to standing indicates orthostatic intolerance,
+      a common consequence of microgravity-induced blood-volume depletion.
+      ≥30 bpm meets POTS diagnostic criteria and needs ground consultation.
+    source: "https://pubmed.ncbi.nlm.nih.gov/19289835/"
+
+  - key: ex
+    label: Exercise Time
+    unit: minutes/day
+    domain: msk
+    direction: lower_is_worse
+    watch: 45
+    action: 20
+    drift_tolerance: 10
+    why: >
+      NASA HRP requires ≥2 h of daily countermeasure exercise on ISS; 45 min is a
+      conservative watch boundary for shorter missions. Below 20 min/day, bone and
+      muscle loss accelerates significantly.
+    source: "https://www.nasa.gov/hrp/research/muscle-and-bone"
+
+  - key: bone
+    label: Bone Mineral Density Index
+    unit: index (0–10)
+    domain: msk
+    direction: lower_is_worse
+    watch: 7
+    action: 5
+    drift_tolerance: 0.5
+    why: >
+      Bone loss of ~1–2 % per month is typical in microgravity. The index (0–10,
+      10 = preflight nominal) dropping below 7 warrants increased countermeasures;
+      below 5 indicates significant structural risk.
+    source: "illustrative, to be validated by flight surgeon"
+
+  - key: temp
+    label: Core Body Temperature
+    unit: °C
+    domain: immune
+    direction: higher_is_worse
+    watch: 37.5
+    action: 38.3
+    drift_tolerance: 0.3
+    why: >
+      Low-grade fever (≥37.5 °C) in microgravity may signal immune dysregulation or
+      early infection; ≥38.3 °C (100.9 °F) is the standard clinical fever threshold
+      requiring crew medical officer assessment.
+    source: "https://www.cdc.gov/coronavirus/2019-ncov/hcp/clinical-guidance-management-patients.html"
+
+  - key: sym
+    label: Symptom Score
+    unit: count (0–6)
+    domain: immune
+    direction: higher_is_worse
+    watch: 2
+    action: 4
+    drift_tolerance: 1
+    why: >
+      A composite count of reported symptoms (headache, nausea, fatigue, congestion,
+      sore throat, GI distress). ≥2 warrants monitoring for infection cluster;
+      ≥4 represents significant immune event in a closed environment.
+    source: "illustrative, to be validated by flight surgeon"
+
+  - key: sleep
+    label: Sleep Duration
+    unit: hours/night
+    domain: behav
+    direction: lower_is_worse
+    watch: 6.5
+    action: 5.5
+    drift_tolerance: 0.5
+    why: >
+      Sleep disruption is one of the most common behavioral health risks in spaceflight
+      (NASA HRP BMED-01). Below 6.5 h impairs cognitive performance; below 5.5 h is
+      associated with significant error rates and mood instability.
+    source: "https://www.nasa.gov/hrp/research/behavioral-health"
+
+  - key: mood
+    label: Mood Score
+    unit: score (1–10)
+    domain: behav
+    direction: lower_is_worse
+    watch: 5
+    action: 3
+    drift_tolerance: 1
+    why: >
+      Self-reported mood below 5 on a 10-point scale warrants behavioral health check-in;
+      below 3 indicates significant distress requiring crew behavioral health officer
+      contact or ground consultation.
+    source: "illustrative, to be validated by flight surgeon"
+
+  - key: stress
+    label: Perceived Stress Score
+    unit: score (0–10)
+    domain: behav
+    direction: higher_is_worse
+    watch: 6
+    action: 8
+    drift_tolerance: 1.5
+    why: >
+      Chronic mission stress elevates cortisol and suppresses immune function.
+      A self-reported score ≥6 indicates elevated stress requiring behavioral
+      health support; ≥8 warrants crew behavioral health officer involvement.
+    source: "illustrative, to be validated by flight surgeon"
+
+  - key: dose
+    label: Radiation Dose
+    unit: mGy/day
+    domain: env
+    direction: higher_is_worse
+    watch: 1.0
+    action: 5.0
+    drift_tolerance: 0.3
+    why: >
+      ISS crew receive ~0.3–0.6 mGy/day inside the station. A single-day dose of
+      ≥1 mGy may indicate a solar particle event (SPE); ≥5 mGy/day warrants immediate
+      shelter-in-place and ground notification per emergency procedures.
+    source: "https://www.nasa.gov/hrp/research/space-radiation"
+
+  - key: co2
+    label: Cabin CO₂ Partial Pressure
+    unit: ppm
+    domain: env
+    direction: higher_is_worse
+    watch: 1000
+    action: 5000
+    drift_tolerance: 100
+    why: >
+      ISS CO₂ operates at ~400–800 ppm. Levels above 1000 ppm cause headaches and
+      cognitive performance degradation; above 5000 ppm (OSHA 8-hour TWA limit) the
+      crew must implement contingency CO₂ scrubbing procedures immediately.
+    source: "https://ntrs.nasa.gov/citations/20170001935"
+

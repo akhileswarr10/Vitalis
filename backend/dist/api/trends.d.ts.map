@@ -1,0 +1,1 @@
+{"version":3,"file":"trends.d.ts","sourceRoot":"","sources":["../../src/api/trends.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,SAAS,CAAC;AAClD,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAMzC,UAAU,eAAe;IACvB,IAAI,EAAE,OAAO,CAAC;CACf;AAED,eAAO,MAAM,WAAW,EAAE,kBAAkB,CAAC,eAAe,CA+E3D,CAAC"}
