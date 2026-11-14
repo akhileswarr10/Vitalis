@@ -21,10 +21,38 @@ async function getApp() {
   return appPromise;
 }
 
+async function readBody(req: IncomingMessage): Promise<string | undefined> {
+  if (req.method === 'GET' || req.method === 'HEAD') return undefined;
+  if ('body' in req && (req as { body?: unknown }).body !== undefined) {
+    const b = (req as { body: unknown }).body;
+    return typeof b === 'string' ? b : JSON.stringify(b);
+  }
+  const chunks: Buffer[] = [];
+  for await (const chunk of req) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : (chunk as Buffer));
+  }
+  return chunks.length > 0 ? Buffer.concat(chunks).toString('utf8') : undefined;
+}
+
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   try {
     const app = await getApp();
-    app.server.emit('request', req, res);
+    const payload = await readBody(req);
+
+    const response = await app.inject({
+      method: req.method as any,
+      url: req.url || '/',
+      headers: req.headers as Record<string, string>,
+      payload,
+    });
+
+    res.statusCode = response.statusCode;
+    for (const [key, val] of Object.entries(response.headers)) {
+      if (val !== undefined) {
+        res.setHeader(key, val);
+      }
+    }
+    res.end(response.rawPayload);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     const stack = err instanceof Error ? err.stack : undefined;
