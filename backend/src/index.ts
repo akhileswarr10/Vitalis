@@ -21,7 +21,12 @@ async function getApp() {
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   try {
     const app = await getApp();
-    app.server.emit('request', req, res);
+    await new Promise<void>((resolve, reject) => {
+      res.on('finish', resolve);
+      res.on('close', resolve);
+      res.on('error', reject);
+      app.server.emit('request', req, res);
+    });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     console.error('Fastify Vercel Handler Error:', err);
