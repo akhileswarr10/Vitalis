@@ -29,6 +29,13 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
   const { config } = deps;
 
   const app = Fastify({
+    rewriteUrl(req) {
+      const url = req.url ?? '';
+      if (url && !url.startsWith('/api') && url !== '/') {
+        return '/api' + (url.startsWith('/') ? url : '/' + url);
+      }
+      return url;
+    },
     logger:
       config.APP_ENV === 'test'
         ? { level: 'silent' }
@@ -79,14 +86,6 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     timeWindow: '1 minute',
     // Don't rate-limit health probes
     skipOnError: true,
-  });
-
-  // ---- URL normalization ----
-  // Ensures routes match whether reverse proxy forwards /api/... or strips it
-  app.addHook('onRequest', async (req) => {
-    if (req.raw.url && !req.raw.url.startsWith('/api')) {
-      req.raw.url = '/api' + (req.raw.url.startsWith('/') ? req.raw.url : '/' + req.raw.url);
-    }
   });
 
   // ---- Routes ----

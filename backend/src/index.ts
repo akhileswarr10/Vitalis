@@ -13,7 +13,10 @@ async function getApp() {
       const app = await buildApp({ config, db });
       await app.ready();
       return app;
-    })();
+    })().catch((err) => {
+      appPromise = null;
+      throw err;
+    });
   }
   return appPromise;
 }
@@ -21,24 +24,22 @@ async function getApp() {
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   try {
     const app = await getApp();
-    await new Promise<void>((resolve, reject) => {
-      res.on('finish', resolve);
-      res.on('close', resolve);
-      res.on('error', reject);
-      app.server.emit('request', req, res);
-    });
+    app.server.emit('request', req, res);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error('Fastify Vercel Handler Error:', err);
-    res.statusCode = 500;
-    res.setHeader('Content-Type', 'application/json');
-    res.end(
-      JSON.stringify({
-        statusCode: 500,
-        error: 'Internal Server Error',
-        message,
-      }),
-    );
+    const stack = err instanceof Error ? err.stack : undefined;
+    console.error('Fastify Vercel Handler Error:', message, stack);
+
+    if (!res.headersSent) {
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(
+        JSON.stringify({
+          statusCode: 500,
+          error: 'Internal Server Error',
+          message,
+        }),
+      );
+    }
   }
 }
-
