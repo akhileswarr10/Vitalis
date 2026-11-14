@@ -81,6 +81,14 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     skipOnError: true,
   });
 
+  // ---- URL normalization ----
+  // Ensures routes match whether reverse proxy (Vercel Services) forwards /api/... or strips it
+  app.addHook('onRequest', async (req) => {
+    if (!req.url.startsWith('/api')) {
+      req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
+    }
+  });
+
   // ---- Routes ----
   await app.register(healthRoute, { prefix: '/api', deps });
   await app.register(checkinsRoute, { prefix: '/api', deps });

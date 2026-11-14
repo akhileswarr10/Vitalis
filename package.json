@@ -4,21 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run build --prefix backend && npm run build --prefix frontend",
     "test": "npm test --prefix backend && npm test --prefix frontend"
-  },
-  "dependencies": {
-    "@fastify/cors": "^9.0.0",
-    "@fastify/rate-limit": "^9.0.0",
-    "@vercel/node": "^3.2.0",
-    "dotenv": "^16.4.0",
-    "fastify": "^4.26.0",
-    "pg": "^8.11.0",
-    "yaml": "^2.4.0",
-    "zod": "^3.23.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "@types/pg": "^8.11.0"
   }
 }
