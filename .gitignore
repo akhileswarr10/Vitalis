@@ -1,0 +1,21 @@
+.env
+.env.*
+!.env.example
+backend/data/
+node_modules/
+
+
+dist/
+coverage/
+.vite/
+.DS_Store
+.idea/
+.vscode/
+*.gguf
+*.log
+
+# Ignore unnecessary doc and meta markdown files
+/docs
+CLAUDE.md
+SECURITY.md
+ACKNOWLEDGEMENTS.md

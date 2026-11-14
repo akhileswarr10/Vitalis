@@ -1,0 +1,172 @@
+/*
+ * tokens.css – Flight-operations instrument panel theme tokens.
+ * Design direction: docs/DESIGN.md
+ * Utilitarian, dense, calm, readable. Zero shadows, zero gradients, zero emoji.
+ */
+
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+:root {
+  /* Typography */
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Sizing & Spacing (8px unit) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --radius: 4px;
+  --touch-target: 44px;
+
+  /* Surfaces & Text - Light Theme (Warm gray / utilitarian paper console) */
+  --bg-app: #f4f3f0;
+  --bg-surface: #ffffff;
+  --bg-surface-subtle: #eeece8;
+  --bg-hover: #e5e3de;
+  --text-main: #141413;
+  --text-muted: #575653;
+  --text-dim: #7f7e7a;
+  --border-color: #d1cfc9;
+  --border-strong: #9e9c96;
+
+  /* Accent (Steel blue/teal) */
+  --accent: #1e5670;
+  --accent-contrast: #ffffff;
+  --accent-hover: #153e52;
+
+  /* Semantic Status Colors (WCAG AA >= 4.5:1 contrast against surface) */
+  --status-nominal: #1c6b38;
+  --status-nominal-bg: #e6f4eb;
+  --status-nominal-border: #80c498;
+
+  --status-watch: #8f5300;
+  --status-watch-bg: #fdf3e2;
+  --status-watch-border: #e6b866;
+
+  --status-action: #ab1d1d;
+  --status-action-bg: #fae8e8;
+  --status-action-border: #d46363;
+
+  --status-nodata: #63615c;
+  --status-nodata-bg: #ebe9e4;
+  --status-nodata-border: #b5b3ad;
+
+  /* Transitions */
+  --transition: 120ms ease;
+}
+
+/* Hand-tuned Dark Theme (Deep dark gray surfaces, calm desaturated indicators) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-app: #121314;
+    --bg-surface: #1a1c1e;
+    --bg-surface-subtle: #24272a;
+    --bg-hover: #2e3236;
+    --text-main: #e6e8eb;
+    --text-muted: #9ba1a6;
+    --text-dim: #6c7278;
+    --border-color: #33373b;
+    --border-strong: #545b63;
+
+    --accent: #4fa0c7;
+    --accent-contrast: #0d1e26;
+    --accent-hover: #6db4d6;
+
+    --status-nominal: #40b06b;
+    --status-nominal-bg: #11281a;
+    --status-nominal-border: #1e4d2e;
+
+    --status-watch: #d99126;
+    --status-watch-bg: #2d1e08;
+    --status-watch-border: #593d12;
+
+    --status-action: #e65252;
+    --status-action-bg: #331313;
+    --status-action-border: #662222;
+
+    --status-nodata: #8a9199;
+    --status-nodata-bg: #1e2124;
+    --status-nodata-border: #3c4249;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg-app: #121314;
+  --bg-surface: #1a1c1e;
+  --bg-surface-subtle: #24272a;
+  --bg-hover: #2e3236;
+  --text-main: #e6e8eb;
+  --text-muted: #9ba1a6;
+  --text-dim: #6c7278;
+  --border-color: #33373b;
+  --border-strong: #545b63;
+
+  --accent: #4fa0c7;
+  --accent-contrast: #0d1e26;
+  --accent-hover: #6db4d6;
+
+  --status-nominal: #40b06b;
+  --status-nominal-bg: #11281a;
+  --status-nominal-border: #1e4d2e;
+
+  --status-watch: #d99126;
+  --status-watch-bg: #2d1e08;
+  --status-watch-border: #593d12;
+
+  --status-action: #e65252;
+  --status-action-bg: #331313;
+  --status-action-border: #662222;
+
+  --status-nodata: #8a9199;
+  --status-nodata-bg: #1e2124;
+  --status-nodata-border: #3c4249;
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.45;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular numbers for all telemetry and data readout */
+.tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Keyboard focus styling */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

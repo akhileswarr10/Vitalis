@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: ./backend
+    env_file: .env
+    ports: ["8000:8000"]
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8000
+    depends_on: [backend]
+    ports: ["5173:5173"]
+# Database = Supabase (hosted). LLM = Groq (hosted). No local database or model container is needed.
