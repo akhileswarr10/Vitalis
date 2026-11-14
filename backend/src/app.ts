@@ -82,10 +82,10 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
   });
 
   // ---- URL normalization ----
-  // Ensures routes match whether reverse proxy (Vercel Services) forwards /api/... or strips it
+  // Ensures routes match whether reverse proxy forwards /api/... or strips it
   app.addHook('onRequest', async (req) => {
-    if (!req.url.startsWith('/api')) {
-      req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
+    if (req.raw.url && !req.raw.url.startsWith('/api')) {
+      req.raw.url = '/api' + (req.raw.url.startsWith('/') ? req.raw.url : '/' + req.raw.url);
     }
   });
 
