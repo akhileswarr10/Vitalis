@@ -17,7 +17,7 @@ import type {
 
 export * from '../types.js';
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
+const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
 /** Generic fetch wrapper – surfaces HTTP errors as thrown Errors. */
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {

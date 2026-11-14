@@ -55,9 +55,21 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
 
   // ---- CORS ----
   // CLAUDE.md rule 6: frontend only calls our backend, never Groq/Supabase.
+  const allowedOrigins = config.CORS_ORIGINS.split(',').map(s => s.trim());
   await app.register(cors, {
-    origin: config.CORS_ORIGINS.split(',').map(s => s.trim()),
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true);
+      if (
+        allowedOrigins.includes('*') ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app')
+      ) {
+        return cb(null, true);
+      }
+      return cb(null, false);
+    },
     methods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true,
   });
 
   // ---- Rate limiting ----
