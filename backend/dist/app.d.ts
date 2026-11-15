@@ -6,11 +6,13 @@
  * in as deps so tests can substitute PGlite and mocked config freely.
  */
 import { type FastifyInstance } from 'fastify';
-import type { Config } from './config.js';
-import type { Db } from './db.js';
+import type { IncomingMessage, ServerResponse } from 'node:http';
+import { type Config } from './config.js';
+import { type Db } from './db.js';
 export interface AppDeps {
     config: Config;
     db: Db;
 }
 export declare function buildApp(deps: AppDeps): Promise<FastifyInstance>;
+export default function handler(req: IncomingMessage, res: ServerResponse): Promise<void>;
 //# sourceMappingURL=app.d.ts.map
