@@ -68863,7 +68863,7 @@ async function handler(req, res) {
     const app = await getAppInstance();
     const payload = await readBody(req);
     const response = await app.inject({
-      method: req.method,
+      method: req.method ?? "GET",
       url: req.url || "/",
       headers: req.headers,
       payload

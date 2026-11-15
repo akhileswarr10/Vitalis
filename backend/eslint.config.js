@@ -1,6 +1,9 @@
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  {
+    ignores: ['dist/**', 'node_modules/**', 'vitest.config.ts', 'eslint.config.js', 'app.mjs', 'app.js', 'app.cjs', 'bundle.mjs', '*.mjs', '*.cjs'],
+  },
   ...tseslint.configs.recommended,
   {
     rules: {
@@ -10,8 +13,4 @@ export default tseslint.config(
       'no-console': ['warn', { allow: ['error', 'warn'] }],
     },
   },
-  {
-    ignores: ['dist/**', 'node_modules/**', 'vitest.config.ts', 'eslint.config.js'],
-  },
 );
-

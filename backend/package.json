@@ -11,7 +11,7 @@
     "build": "tsc -p tsconfig.json && node --input-type=module -e \"import { mkdirSync, copyFileSync, cpSync } from 'node:fs'; mkdirSync('dist/engine', { recursive: true }); copyFileSync('package.json', 'dist/package.json'); copyFileSync('src/engine/thresholds.yaml', 'dist/engine/thresholds.yaml'); cpSync('src/knowledge', 'dist/knowledge', { recursive: true }); cpSync('src/llm/prompts', 'dist/llm/prompts', { recursive: true });\"",
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
+    "lint": "eslint src",
     "test": "vitest run"
   },
   "dependencies": {

@@ -41,7 +41,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const payload = await readBody(req);
 
     const response = await app.inject({
-      method: req.method as any,
+      method: (req.method as 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS') ?? 'GET',
       url: req.url || '/',
       headers: req.headers as Record<string, string>,
       payload,
