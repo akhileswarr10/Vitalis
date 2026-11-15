@@ -2,14 +2,13 @@
   "name": "vitalis-backend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "main": "app.js",
-  "engines": {
-    "node": ">=20"
-  },
+  "engines": { "node": ">=20" },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "bundle": "node bundle.mjs",
-    "build": "node bundle.mjs && tsc -p tsconfig.json && node --input-type=module -e \"import { mkdirSync, copyFileSync, cpSync } from 'node:fs'; mkdirSync('dist/engine', { recursive: true }); copyFileSync('package.json', 'dist/package.json'); copyFileSync('src/engine/thresholds.yaml', 'dist/engine/thresholds.yaml'); cpSync('src/knowledge', 'dist/knowledge', { recursive: true }); cpSync('src/llm/prompts', 'dist/llm/prompts', { recursive: true });\"",
+    "build": "tsc -p tsconfig.json && node --input-type=module -e \"import { mkdirSync, copyFileSync, cpSync } from 'node:fs'; mkdirSync('dist/engine', { recursive: true }); copyFileSync('package.json', 'dist/package.json'); copyFileSync('src/engine/thresholds.yaml', 'dist/engine/thresholds.yaml'); cpSync('src/knowledge', 'dist/knowledge', { recursive: true }); cpSync('src/llm/prompts', 'dist/llm/prompts', { recursive: true });\"",
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -28,13 +27,11 @@
     "@electric-sql/pglite": "^0.2.0",
     "@types/node": "^20.11.0",
     "@types/pg": "^8.11.0",
-    "esbuild": "^0.20.0",
     "eslint": "^9.0.0",
     "msw": "^2.2.0",
     "tsx": "^4.7.0",
     "typescript": "^5.4.0",
     "typescript-eslint": "^8.0.0",
     "vitest": "^1.5.0"
-  },
-  "type": "module"
+  }
 }
