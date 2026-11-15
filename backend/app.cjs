@@ -7,3 +7,4 @@ module.exports = async function handler(req, res) {
   const handle = await handlerPromise;
   return handle(req, res);
 };
+

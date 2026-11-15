@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -62645,9 +62646,9 @@ var require_dist6 = __commonJS({
 });
 
 // src/app.ts
-var import_fastify = __toESM(require_fastify());
-var import_cors = __toESM(require_cors());
-var import_rate_limit2 = __toESM(require_rate_limit());
+var import_fastify = __toESM(require_fastify(), 1);
+var import_cors = __toESM(require_cors(), 1);
+var import_rate_limit2 = __toESM(require_rate_limit(), 1);
 
 // node_modules/zod/v3/external.js
 var external_exports = {};
@@ -67118,7 +67119,7 @@ var demoRoute = async (app, opts) => {
 };
 
 // src/engine/thresholds.ts
-var import_yaml = __toESM(require_dist6());
+var import_yaml = __toESM(require_dist6(), 1);
 import { readFileSync as readFileSync2 } from "node:fs";
 import { join as join2, dirname as dirname2 } from "node:path";
 import { fileURLToPath as fileURLToPath2 } from "node:url";
@@ -67639,7 +67640,7 @@ var trendsRoute = async (app, opts) => {
 };
 
 // src/api/assistant.ts
-var import_rate_limit = __toESM(require_rate_limit());
+var import_rate_limit = __toESM(require_rate_limit(), 1);
 
 // src/llm/service.ts
 import { readFileSync as readFileSync4 } from "node:fs";
