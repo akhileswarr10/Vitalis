@@ -4,11 +4,15 @@ type Handler = (req: IncomingMessage, res: ServerResponse) => Promise<void>;
 
 let handlerPromise: Promise<Handler> | null = null;
 
+// new Function prevents TypeScript from converting dynamic import() → require()
+// require() cannot load ESM (.mjs) files; dynamic import() can.
+const dynamicImport = new Function('specifier', 'return import(specifier)') as (
+  s: string
+) => Promise<{ default: Handler }>;
+
 async function getHandler(): Promise<Handler> {
   if (!handlerPromise) {
-    handlerPromise = import('../backend/app.mjs' as string).then(
-      (m: { default: Handler }) => m.default
-    );
+    handlerPromise = dynamicImport('../backend/app.mjs').then((m) => m.default);
   }
   return handlerPromise!;
 }
